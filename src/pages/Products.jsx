@@ -17,7 +17,7 @@ function Products() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/products")
+      .get("https://localfarm.infinityfreeapp.com/contactproducts")
       .then((response) => {
         setProducts(response.data);
         console.log("Fetched products:", response.data); // Debug log to check the fetched data

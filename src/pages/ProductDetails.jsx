@@ -22,7 +22,7 @@ function ProductDetails() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/products/${id}`)
+      .get(`https://localfarm.infinityfreeapp.com/contactproducts/${id}`)
       .then((response) => {
         setProduct(response.data);
       })

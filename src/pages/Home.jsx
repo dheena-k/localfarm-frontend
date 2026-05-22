@@ -16,7 +16,7 @@ function Home() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/products')
+    axios.get('https://localfarm.infinityfreeapp.com/products')
       .then((response) => {
         setProducts(response.data);
         console.log("Fetched products:", response.data); // Debug log to check the fetched data

@@ -7,7 +7,7 @@ function ProductCard({ item }) {
   <div className="card h-100 border-0 shadow-sm rounded-4 overflow-hidden">
 
   <img
-   src={`http://localhost:8080/uploads/${item.image}`}
+   src={`https://localfarm.infinityfreeapp.com/uploads/${item.image}`}
     className="card-img-top"
     alt={item.name}
     style={{

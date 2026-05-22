@@ -57,7 +57,7 @@ const mapEmbedUrl =
     try {
 
       const response = await axios.post(
-        "http://localhost:8080/contact",
+        "https://localfarm.infinityfreeapp.com/contact",
         formData
       );
 
