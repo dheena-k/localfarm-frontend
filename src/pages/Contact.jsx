@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import {
   FaFacebookF,
   FaInstagram,
@@ -13,6 +15,75 @@ function Contact() {
 
   const mapEmbedUrl =
     `https://www.google.com/maps?q=${latitude},${longitude}&z=15&output=embed`;
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+
+  };
+
+  const handleSubmit = async (e) => {
+
+    e.preventDefault();
+
+    setLoading(true);
+
+    try {
+
+     const response = await fetch(
+  "https://localfarm.infinityfreeapp.com/contacts",
+  {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  }
+);
+
+      const data = await response.json();
+
+      if (data.status) {
+
+        alert("Message sent successfully!");
+
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          message: "",
+        });
+
+      } else {
+
+        alert("Something went wrong");
+
+      }
+
+    } catch (error) {
+
+      console.error(error);
+
+      alert("Server Error");
+
+    }
+
+    setLoading(false);
+
+  };
 
   return (
 
@@ -41,7 +112,7 @@ function Contact() {
 
         <div className="row g-5 align-items-start">
 
-          {/* LEFT SIDE */}
+          {/* LEFT */}
 
           <div className="col-lg-5">
 
@@ -119,7 +190,7 @@ function Contact() {
 
           </div>
 
-          {/* RIGHT SIDE */}
+          {/* RIGHT */}
 
           <div className="col-lg-7">
 
@@ -141,54 +212,10 @@ function Contact() {
 
               <p className="text-muted mb-4">
                 Have questions about our farm products,
-                delivery, or availability? Fill out the
-                form and our team will contact you shortly.
+                delivery, or availability?
               </p>
 
-              {/* FORM */}
-
-              <form
-                action="https://formsubmit.co/dheenadhayalan201@gmail.com"
-                method="POST"
-              >
-
-                {/* SECURITY */}
-
-                <input
-                  type="hidden"
-                  name="_captcha"
-                  value="true"
-                />
-
-                <input
-                  type="text"
-                  name="_honey"
-                  style={{ display: "none" }}
-                />
-
-                {/* EMAIL SUBJECT */}
-
-                <input
-                  type="hidden"
-                  name="_subject"
-                  value="New Farm Website Enquiry"
-                />
-
-                {/* TABLE FORMAT */}
-
-                <input
-                  type="hidden"
-                  name="_template"
-                  value="table"
-                />
-
-                {/* REDIRECT */}
-
-                <input
-                  type="hidden"
-                  name="_next"
-                  value="http://localhost:5173//contact"
-                />
+              <form onSubmit={handleSubmit}>
 
                 <div className="row">
 
@@ -203,6 +230,8 @@ function Contact() {
                     <input
                       type="text"
                       name="name"
+                      value={formData.name}
+                      onChange={handleChange}
                       className="form-control custom-input"
                       placeholder="Enter your name"
                       required
@@ -221,6 +250,8 @@ function Contact() {
                     <input
                       type="email"
                       name="email"
+                      value={formData.email}
+                      onChange={handleChange}
                       className="form-control custom-input"
                       placeholder="Enter your email"
                       required
@@ -241,6 +272,8 @@ function Contact() {
                   <input
                     type="text"
                     name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
                     className="form-control custom-input"
                     placeholder="Enter your phone number"
                   />
@@ -258,6 +291,8 @@ function Contact() {
                   <textarea
                     rows="6"
                     name="message"
+                    value={formData.message}
+                    onChange={handleChange}
                     className="form-control custom-input"
                     placeholder="Write your message here..."
                     required
@@ -270,8 +305,11 @@ function Contact() {
                 <button
                   type="submit"
                   className="submit-btn"
+                  disabled={loading}
                 >
-                  Send Message
+
+                  {loading ? "Sending..." : "Send Message"}
+
                 </button>
 
               </form>
