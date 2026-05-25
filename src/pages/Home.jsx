@@ -13,7 +13,8 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 function Home() {
-  //const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState([]);
+
 
 useEffect(() => {
   setProducts(productsData);
