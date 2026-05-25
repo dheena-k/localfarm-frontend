@@ -1,91 +1,18 @@
-import { useState } from "react";
-import axios from "axios";
 import {
   FaFacebookF,
   FaInstagram,
   FaWhatsapp,
   FaMapMarkerAlt,
-  FaPhoneAlt,
-  FaEnvelope,
   FaLeaf,
 } from "react-icons/fa";
 
 function Contact() {
 
-const [latitude] = useState("12.361820154735298");
-const [longitude] = useState("80.0708195982056");
+  const latitude = "12.361820154735298";
+  const longitude = "80.0708195982056";
 
-const mapEmbedUrl =
-  `https://www.google.com/maps?q=${latitude},${longitude}&z=15&output=embed`;
-
-  // FORM STATE
-  const [formData, setFormData] = useState({
-
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-
-  });
-
-  // SUCCESS MESSAGE
-  const [success, setSuccess] = useState("");
-
-  // LOADING
-  const [loading, setLoading] = useState(false);
-
-  // HANDLE INPUT CHANGE
-  const handleChange = (e) => {
-
-    setFormData({
-
-      ...formData,
-
-      [e.target.name]: e.target.value,
-
-    });
-
-  };
-
-  // FORM SUBMIT
-  const handleSubmit = async (e) => {
-
-    e.preventDefault();
-
-    setLoading(true);
-
-    try {
-
-      const response = await axios.post(
-        "https://localfarm.infinityfreeapp.com/contact",
-        formData
-      );
-
-      console.log(response.data);
-
-      setSuccess("Your message has been submitted successfully!");
-
-      // RESET FORM
-      setFormData({
-
-        name: "",
-        email: "",
-        phone: "",
-        message: "",
-
-      });
-
-    } catch (error) {
-
-      console.log(error);
-
-      alert("Something went wrong");
-
-    }
-
-    setLoading(false);
-
-  };
+  const mapEmbedUrl =
+    `https://www.google.com/maps?q=${latitude},${longitude}&z=15&output=embed`;
 
   return (
 
@@ -134,7 +61,7 @@ const mapEmbedUrl =
 
             </div>
 
-            {/* INFO CARDS */}
+            {/* ADDRESS */}
 
             <div className="contact-info-card mb-4">
 
@@ -164,9 +91,7 @@ const mapEmbedUrl =
 
             </div>
 
-         
-           
-            {/* SOCIAL MEDIA */}
+            {/* SOCIAL */}
 
             <div className="social-wrapper mt-4">
 
@@ -194,7 +119,7 @@ const mapEmbedUrl =
 
           </div>
 
-          {/* RIGHT SIDE FORM */}
+          {/* RIGHT SIDE */}
 
           <div className="col-lg-7">
 
@@ -220,19 +145,50 @@ const mapEmbedUrl =
                 form and our team will contact you shortly.
               </p>
 
-              {/* SUCCESS */}
-
-              {success && (
-
-                <div className="alert alert-success rounded-4">
-                  {success}
-                </div>
-
-              )}
-
               {/* FORM */}
 
-              <form onSubmit={handleSubmit}>
+              <form
+                action="https://formsubmit.co/dheenadhayalan201@gmail.com"
+                method="POST"
+              >
+
+                {/* SECURITY */}
+
+                <input
+                  type="hidden"
+                  name="_captcha"
+                  value="true"
+                />
+
+                <input
+                  type="text"
+                  name="_honey"
+                  style={{ display: "none" }}
+                />
+
+                {/* EMAIL SUBJECT */}
+
+                <input
+                  type="hidden"
+                  name="_subject"
+                  value="New Farm Website Enquiry"
+                />
+
+                {/* TABLE FORMAT */}
+
+                <input
+                  type="hidden"
+                  name="_template"
+                  value="table"
+                />
+
+                {/* REDIRECT */}
+
+                <input
+                  type="hidden"
+                  name="_next"
+                  value="http://localhost:5173//contact"
+                />
 
                 <div className="row">
 
@@ -249,8 +205,6 @@ const mapEmbedUrl =
                       name="name"
                       className="form-control custom-input"
                       placeholder="Enter your name"
-                      value={formData.name}
-                      onChange={handleChange}
                       required
                     />
 
@@ -269,8 +223,6 @@ const mapEmbedUrl =
                       name="email"
                       className="form-control custom-input"
                       placeholder="Enter your email"
-                      value={formData.email}
-                      onChange={handleChange}
                       required
                     />
 
@@ -291,8 +243,6 @@ const mapEmbedUrl =
                     name="phone"
                     className="form-control custom-input"
                     placeholder="Enter your phone number"
-                    value={formData.phone}
-                    onChange={handleChange}
                   />
 
                 </div>
@@ -310,8 +260,6 @@ const mapEmbedUrl =
                     name="message"
                     className="form-control custom-input"
                     placeholder="Write your message here..."
-                    value={formData.message}
-                    onChange={handleChange}
                     required
                   ></textarea>
 
@@ -322,13 +270,8 @@ const mapEmbedUrl =
                 <button
                   type="submit"
                   className="submit-btn"
-                  disabled={loading}
                 >
-
-                  {loading
-                    ? "Sending..."
-                    : "Send Message"}
-
+                  Send Message
                 </button>
 
               </form>

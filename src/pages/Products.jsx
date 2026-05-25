@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import productsData from '../data/products.json';
 import { motion } from "framer-motion";
 import {
   FaLeaf,
@@ -15,17 +15,9 @@ function Products() {
 
   const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get("https://localfarm.infinityfreeapp.com/contactproducts")
-      .then((response) => {
-        setProducts(response.data);
-        console.log("Fetched products:", response.data); // Debug log to check the fetched data
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+useEffect(() => {
+  setProducts(productsData);
+}, []);
 
   return (
     <>
@@ -184,7 +176,7 @@ function Products() {
                   <div className="product-image-wrapper">
 
                     <img
-                        src={`http://localhost:8080/uploads/${item.image}`}
+                        src={`${item.image}`}
 
                       alt={item.name}
                       className="product-list-image"

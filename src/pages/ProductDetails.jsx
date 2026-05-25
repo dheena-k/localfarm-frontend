@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import ProductCard from '../components/ProductCard';
 import { useParams } from "react-router-dom";
 import {
   FaMapMarkerAlt,
@@ -10,6 +10,9 @@ import {
 } from "react-icons/fa";
 
 function ProductDetails() {
+  useEffect(() => {
+    setProducts(productsData);
+  }, []);
   const { id } = useParams();
 
   const [product, setProduct] = useState({});
